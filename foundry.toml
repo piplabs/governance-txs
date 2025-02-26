@@ -19,7 +19,8 @@ remappings = [
   "@openzeppelin-upgrades/contracts/=node_modules/@openzeppelin/contracts-upgradeable",
   "erc6551/=node_modules/erc6551/",
   "solady/=node_modules/solady/",
-  "@piplabs/story-contracts/=node_modules/@piplabs/story-contracts/src",
+  "@piplabs/story-contracts/interfaces/=node_modules/@piplabs/story-contracts/src/interfaces",
+  "@piplabs/story-contracts/libraries/=node_modules/@piplabs/story-contracts/src/libraries",
 ]
 
 fs_permissions = [
@@ -28,8 +29,6 @@ fs_permissions = [
   { access = "read", path = "./out" },
   { access = "read-write", path = "./script/admin-actions/output/" },
 ]
-
-libraries = ["src/protocol/libraries/Secp256k1.sol:Secp256k1:0x00000000000000000000000000000000000256f1"]
 
 [fuzz]
 seed = "0x6eed"

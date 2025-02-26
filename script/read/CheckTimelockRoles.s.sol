@@ -5,7 +5,6 @@ import { Script } from "forge-std/Script.sol";
 import { TimelockController } from "@openzeppelin/contracts/governance/TimelockController.sol";
 import { ChainIds } from "../utils/ChainIds.sol";
 import { Predeploys } from "@piplabs/story-contracts/libraries/Predeploys.sol";
-import { IPTokenStaking } from "@piplabs/story-contracts/protocol/IPTokenStaking.sol";
 import { console2 } from "forge-std/console2.sol";
 
 /// @notice Helper script that generates a json file with the timelocked operation to set the IPToken staking fee
