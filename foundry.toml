@@ -19,8 +19,8 @@ remappings = [
   "@openzeppelin-upgrades/contracts/=node_modules/@openzeppelin/contracts-upgradeable",
   "erc6551/=node_modules/erc6551/",
   "solady/=node_modules/solady/",
-  "@piplabs/story-contracts/interfaces/=node_modules/@piplabs/story-contracts/src/interfaces",
-  "@piplabs/story-contracts/libraries/=node_modules/@piplabs/story-contracts/src/libraries",
+  "@piplabs/story-contracts/interfaces/=../story/contracts/src/interfaces",
+  "@piplabs/story-contracts/libraries/=../story/contracts/src/libraries",
 ]
 
 fs_permissions = [
