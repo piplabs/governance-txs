@@ -17,7 +17,7 @@ contract SetUBIPercentage is JSONTimelockedOperations {
 
     constructor() JSONTimelockedOperations(
         "set-ubi-percentage-5%",
-        Modes.SCHEDULE,
+        Modes.EXECUTE,
         address(0) // Current timelock
     ) {
         from = vm.envAddress("ADMIN_ADDRESS");
