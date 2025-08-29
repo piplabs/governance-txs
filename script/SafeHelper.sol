@@ -5,19 +5,19 @@ import { Script } from "forge-std/Script.sol";
 import { console2 } from "forge-std/console2.sol";
 
 // Example of command to run:
-// forge script script/SafeHelper.sol --sig "run(address,address,bytes,address)" 0xC9a862Df1872402c4eAcbb8402F9BE628B52d270 0xC9a862Df1872402c4eAcbb8402F9BE628B52d270 0x0d582f13000000000000000000000000af43958ad62389be3e0b553dfd259ec335814c1c0000000000000000000000000000000000000000000000000000000000000001 0x576fa14594D1Ab7dc3fa7E08466E873321f5C95B --rpc-url https://aeneid.storyrpc.io
+// forge script script/SafeHelper.sol --sig "run(address,address,bytes,address,ISafe.Operation)" 0xC9a862Df1872402c4eAcbb8402F9BE628B52d270 0xC9a862Df1872402c4eAcbb8402F9BE628B52d270 0x0d582f13000000000000000000000000af43958ad62389be3e0b553dfd259ec335814c1c0000000000000000000000000000000000000000000000000000000000000001 0x576fa14594D1Ab7dc3fa7E08466E873321f5C95B 0 --rpc-url https://aeneid.storyrpc.io
 contract SafeHelper is Script {
     /// @param _safeMultisig The address of the safe multisig
     /// @param _to The address of the contract to call (can be the same as _safeMultisig or not)
     /// @param _calldata The calldata of the function to call obtained via cast calldata command - example: cast calldata "addOwnerWithThreshold(address,uint256)" 0xAF43958ad62389BE3E0B553dFd259Ec335814c1C 1
     /// @param _approveHashCaller The address of the multisig signer that will call approveHash()
-    function run(address _safeMultisig, address _to, bytes memory _calldata, address _approveHashCaller) public view {
+    /// @param _operation The operation to perform (0 for Call or 1 for DelegateCall)
+    function run(address _safeMultisig, address _to, bytes memory _calldata, address _approveHashCaller, ISafe.Operation _operation ) public view {
         if (block.chainid != 1315 && block.chainid != 1514) revert("Not supported chain");
         ISafe safe = ISafe(_safeMultisig);
-        ISafe.Operation operation = _safeMultisig == _to ? ISafe.Operation.Call : ISafe.Operation.DelegateCall;
 
         bytes memory encodedData =
-            safe.encodeTransactionData(_to, 0, _calldata, operation, 0, 0, 0, address(0), address(0), safe.nonce());
+            safe.encodeTransactionData(_to, 0, _calldata, _operation, 0, 0, 0, address(0), address(0), safe.nonce());
 
         bytes32 safeTxHash = keccak256(encodedData);
 
@@ -37,7 +37,7 @@ contract SafeHelper is Script {
         console2.log("data: ");
         console2.logBytes(_calldata);
         console2.log("operation: ");
-        console2.logUint(uint8(operation));
+        console2.logUint(uint8(_operation));
         console2.log("safeTxGas: ", "0");
         console2.log("baseGas: ", "0");
         console2.log("gasPrice: ", "0");
